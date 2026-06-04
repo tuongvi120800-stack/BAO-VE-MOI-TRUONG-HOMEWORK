@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>环境保护 — Luyện từ vựng</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#1D9E75;--green-light:#E8F5E9;--green-dark:#0F6E56;
+  --blue:#185FA5;--blue-light:#E6F1FB;
+  --red:#A32D2D;--red-light:#FCEBEB;
+  --amber:#BA7517;--amber-light:#FAEEDA;
+  --purple:#6A1B9A;--purple-light:#F3E5F5;
+  --orange:#E65100;--orange-light:#FFF3E0;
+  --bg:#F8FAF9;--surface:#FFFFFF;--border:#E0E7E3;
+  --text:#1A1A1A;--text2:#555;--text3:#888;
+  --radius:12px;--radius-sm:8px;
+  --shadow:0 2px 12px rgba(0,0,0,0.07);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:80px}
+.zh-text{font-family:'Noto Sans SC',sans-serif}
+
+/* Header */
+.app-header{background:var(--green-dark);color:#fff;padding:16px 20px 12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.app-header h1{font-size:18px;font-weight:600;letter-spacing:0.3px}
+.app-header p{font-size:12px;opacity:0.8;margin-top:2px}
+
+/* Tab bar */
+.tab-bar{display:flex;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;position:sticky;top:60px;z-index:99}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{flex:0 0 auto;padding:12px 16px;font-size:13px;font-family:'Be Vietnam Pro',sans-serif;font-weight:500;color:var(--text3);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap}
+.tab-btn.active{color:var(--green);border-bottom-color:var(--green)}
+.tab-btn .cnt{font-size:11px;background:var(--green-light);color:var(--green);border-radius:10px;padding:1px 6px;margin-left:4px}
+.tab-btn.done .cnt{background:#C0DD97;color:#27500A}
+
+/* Sections */
+.section{display:none;padding:16px 16px 0}
+.section.active{display:block}
+
+/* Progress */
+.prog-wrap{background:var(--border);border-radius:2px;height:3px;margin-bottom:14px;overflow:hidden}
+.prog-fill{height:100%;background:var(--green);border-radius:2px;transition:width 0.3s}
+
+/* Cards */
+.card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+
+/* Flashcard */
+.fc-wrap{perspective:1000px;cursor:pointer;margin-bottom:12px;min-height:150px}
+.fc-inner{position:relative;width:100%;min-height:150px;transform-style:preserve-3d;transition:transform 0.4s cubic-bezier(.4,0,.2,1)}
+.fc-wrap.flipped .fc-inner{transform:rotateY(180deg)}
+.fc-face{position:absolute;width:100%;min-height:150px;backface-visibility:hidden;border-radius:var(--radius);padding:20px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--surface)}
+.fc-back{background:var(--green-light);transform:rotateY(180deg);border-color:#A8D5B5}
+.group-tag{font-size:11px;padding:3px 10px;border-radius:20px;margin-bottom:10px;font-weight:500;align-self:flex-start}
+.fc-zh{font-size:32px;font-weight:700;color:var(--text);letter-spacing:3px;text-align:center}
+.fc-py{font-size:13px;color:var(--text3);margin-top:6px;font-style:italic;text-align:center}
+.fc-vi{font-size:17px;font-weight:600;color:var(--green-dark);text-align:center;margin-top:4px}
+.fc-hint{font-size:12px;color:var(--text3);margin-top:10px}
+.btn-row{display:flex;gap:8px}
+.btn{flex:1;padding:12px 8px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.15s;color:var(--text);display:flex;align-items:center;justify-content:center;gap:6px}
+.btn:active{transform:scale(0.96)}
+.btn.green{background:var(--green-light);border-color:#A8D5B5;color:var(--green-dark)}
+.btn.red{background:var(--red-light);border-color:#F09595;color:var(--red)}
+.btn.primary{background:var(--green);border-color:var(--green);color:#fff}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--text3);flex:0;padding:12px 10px}
+.fc-stats{text-align:center;font-size:12px;color:var(--text3);margin-top:8px}
+.fc-stats span{font-weight:600}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.nav-info{font-size:13px;color:var(--text3)}
+.mini-btn{padding:6px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-family:'Be Vietnam Pro',sans-serif;cursor:pointer;color:var(--text2)}
+
+/* Options */
+.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.opt{padding:12px 10px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);font-size:13px;cursor:pointer;transition:all 0.15s;color:var(--text);text-align:center;font-family:'Be Vietnam Pro',sans-serif;line-height:1.4}
+.opt:active{transform:scale(0.97)}
+.opt.correct{background:var(--green-light);border-color:#A8D5B5;color:var(--green-dark)}
+.opt.wrong{background:var(--red-light);border-color:#F09595;color:var(--red)}
+.opt.disabled{cursor:default}
+.q-text{font-size:15px;line-height:1.7;color:var(--text);margin-bottom:4px}
+.q-sub{font-size:12px;color:var(--text3);margin-bottom:2px}
+
+/* Fill blank */
+.fill-input{width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--surface);font-size:16px;color:var(--text);font-family:'Noto Sans SC','Be Vietnam Pro',sans-serif;outline:none;margin-top:10px;transition:border-color 0.2s}
+.fill-input:focus{border-color:var(--green)}
+.fill-input.correct{border-color:var(--green);background:var(--green-light);color:var(--green-dark)}
+.fill-input.wrong{border-color:var(--red);background:var(--red-light);color:var(--red)}
+.hint-text{font-size:12px;color:var(--text3);margin-top:4px;font-style:italic}
+.reveal-box{border-radius:var(--radius-sm);padding:10px 12px;margin-top:10px;font-size:14px;display:none;font-weight:500}
+.reveal-box.ok{background:var(--green-light);color:var(--green-dark)}
+.reveal-box.no{background:var(--red-light);color:var(--red)}
+.reveal-box.skip{background:var(--amber-light);color:var(--amber)}
+
+/* Results */
+.result-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);padding:20px;text-align:center;box-shadow:var(--shadow)}
+.score-big{font-size:48px;font-weight:700;color:var(--green);line-height:1}
+.score-label{font-size:14px;color:var(--text3);margin-top:4px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.stat-box{background:var(--bg);border-radius:var(--radius-sm);padding:12px 8px;text-align:center}
+.stat-n{font-size:22px;font-weight:700}
+.stat-l{font-size:11px;color:var(--text3);margin-top:2px}
+
+/* Group list */
+.group-list{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.group-pill{padding:5px 12px;border-radius:20px;font-size:12px;border:1px solid var(--border);background:var(--surface);cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;font-weight:500;transition:all 0.15s}
+.group-pill.active{color:#fff}
+
+/* Vocab list mini */
+.vocab-table{width:100%;border-collapse:collapse;font-size:13px}
+.vocab-table th{background:var(--green-dark);color:#fff;padding:8px 10px;text-align:left;font-weight:600;font-size:12px}
+.vocab-table td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:middle}
+.vocab-table tr:nth-child(even) td{background:#FAFCFA}
+.vocab-table tr:active td{background:var(--green-light)}
+.v-zh{font-family:'Noto Sans SC',sans-serif;font-size:15px;font-weight:700;color:var(--green-dark)}
+.v-py{font-size:11px;color:var(--text3);margin-top:1px;font-style:italic}
+.v-vi{font-size:13px;color:var(--text)}
+
+/* Bottom nav hint */
+.section-head{font-size:13px;color:var(--text3);margin-bottom:10px;display:flex;align-items:center;gap:6px;font-weight:500}
+
+/* Score bar anim */
+@keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.anim{animation:slideIn 0.25s ease}
+
+/* Splash */
+.splash{padding:20px 16px 0}
+.splash-hero{background:var(--green-dark);border-radius:var(--radius);padding:24px 20px;color:#fff;margin-bottom:16px}
+.splash-hero h2{font-size:22px;font-weight:700;margin-bottom:6px}
+.splash-hero p{font-size:13px;opacity:0.85;line-height:1.6}
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.mode-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);padding:14px;cursor:pointer;transition:all 0.15s;box-shadow:var(--shadow)}
+.mode-card:active{transform:scale(0.97)}
+.mode-icon{font-size:24px;margin-bottom:6px}
+.mode-title{font-size:14px;font-weight:600;color:var(--text)}
+.mode-desc{font-size:12px;color:var(--text3);margin-top:3px;line-height:1.4}
+.mode-badge{font-size:11px;background:var(--green-light);color:var(--green-dark);border-radius:10px;padding:2px 7px;margin-top:6px;display:inline-block;font-weight:500}
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <h1>环境保护 — Luyện từ vựng</h1>
+  <p>54 từ · 4 chế độ luyện tập</p>
+</div>
+
+<div class="tab-bar" id="tabBar">
+  <button class="tab-btn active" onclick="switchTab(0)">Trang chủ</button>
+  <button class="tab-btn" onclick="switchTab(1)">Thẻ nhớ <span class="cnt" id="b1">54</span></button>
+  <button class="tab-btn" onclick="switchTab(2)">Trắc nghiệm <span class="cnt" id="b2">15</span></button>
+  <button class="tab-btn" onclick="switchTab(3)">Điền từ <span class="cnt" id="b3">10</span></button>
+  <button class="tab-btn" onclick="switchTab(4)">Danh sách</button>
+  <button class="tab-btn" onclick="switchTab(5)">Kết quả</button>
+</div>
+
+<!-- TAB 0: HOME -->
+<div class="section active splash" id="s0">
+  <div class="splash-hero">
+    <h2>Chào mừng!</h2>
+    <p>Bộ từ vựng <strong>bảo vệ môi trường</strong> — 54 từ chia 4 nhóm chủ đề. Chọn chế độ luyện tập phù hợp với bạn.</p>
+  </div>
+  <div class="mode-grid">
+    <div class="mode-card" onclick="switchTab(1)">
+      <div class="mode-icon">🃏</div>
+      <div class="mode-title">Thẻ nhớ</div>
+      <div class="mode-desc">Lật thẻ, đánh dấu đã nhớ / chưa nhớ</div>
+      <div class="mode-badge">54 từ</div>
+    </div>
+    <div class="mode-card" onclick="switchTab(2)">
+      <div class="mode-icon">⚡</div>
+      <div class="mode-title">Trắc nghiệm</div>
+      <div class="mode-desc">4 lựa chọn, chạm nhanh là xong</div>
+      <div class="mode-badge">15 câu</div>
+    </div>
+    <div class="mode-card" onclick="switchTab(3)">
+      <div class="mode-icon">✏️</div>
+      <div class="mode-title">Điền từ</div>
+      <div class="mode-desc">Điền từ vào câu hoàn chỉnh</div>
+      <div class="mode-badge">10 câu</div>
+    </div>
+    <div class="mode-card" onclick="switchTab(4)">
+      <div class="mode-icon">📋</div>
+      <div class="mode-title">Danh sách</div>
+      <div class="mode-desc">Xem toàn bộ từ theo nhóm</div>
+      <div class="mode-badge">Tra cứu</div>
+    </div>
+  </div>
+  <div class="card" style="background:var(--amber-light);border-color:#FAC775">
+    <div style="font-size:13px;color:var(--amber);font-weight:600;margin-bottom:4px">💡 Gợi ý lộ trình</div>
+    <div style="font-size:12px;color:#5D4037;line-height:1.7">
+      1. Xem <strong>Danh sách</strong> để làm quen từ mới<br>
+      2. Luyện <strong>Thẻ nhớ</strong> 10 phút/ngày<br>
+      3. Kiểm tra bằng <strong>Trắc nghiệm</strong> + <strong>Điền từ</strong>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 1: FLASHCARD -->
+<div class="section" id="s1">
+  <div class="prog-wrap"><div class="prog-fill" id="fcProg" style="width:0%"></div></div>
+  <div class="nav-row">
+    <span class="nav-info" id="fcCounter">1 / 54</span>
+    <div style="display:flex;gap:6px">
+      <button class="mini-btn" onclick="fcFilterGroup()">Nhóm</button>
+      <button class="mini-btn" onclick="fcShuffle()">Xáo trộn</button>
+    </div>
+  </div>
+  <div class="group-list" id="fcGroupFilter">
+    <div class="group-pill active" style="background:#1D9E75;border-color:#1D9E75;color:#fff" onclick="fcSetGroup(-1,this)">Tất cả</div>
+    <div class="group-pill" style="--gc:#1D9E75" onclick="fcSetGroup(0,this)">Đồ 1 lần</div>
+    <div class="group-pill" style="--gc:#185FA5" onclick="fcSetGroup(1,this)">Môi trường</div>
+    <div class="group-pill" style="--gc:#6A1B9A" onclick="fcSetGroup(2,this)">Hành động</div>
+    <div class="group-pill" style="--gc:#E65100" onclick="fcSetGroup(3,this)">Bài khoá</div>
+  </div>
+  <div class="fc-wrap" id="fcWrap" onclick="fcFlip()">
+    <div class="fc-inner" id="fcInner">
+      <div class="fc-face" id="fcFront">
+        <span class="group-tag" id="fcTag">Nhóm 1</span>
+        <div class="fc-zh zh-text" id="fcZh">一次性用品</div>
+        <div class="fc-py" id="fcPy">yīcìxìng yòngpǐn</div>
+        <div class="fc-hint">Nhấn để xem nghĩa ↓</div>
+      </div>
+      <div class="fc-face fc-back" id="fcBack">
+        <span class="group-tag" id="fcTag2">Nhóm 1</span>
+        <div class="fc-vi" id="fcVi">Đồ dùng một lần</div>
+        <div class="fc-py" id="fcPy2" style="margin-top:8px"></div>
+        <div class="fc-zh zh-text" id="fcZh2" style="font-size:20px;margin-top:6px;color:var(--green-dark)"></div>
+      </div>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn red" onclick="fcMark(false)">✕ Chưa nhớ</button>
+    <button class="btn ghost" onclick="fcSkip()">→</button>
+    <button class="btn green" onclick="fcMark(true)">✓ Đã nhớ</button>
+  </div>
+  <div class="fc-stats"><span id="fcKnown" style="color:var(--green)">0</span> đã nhớ &nbsp;·&nbsp; <span id="fcUnknown" style="color:var(--red)">0</span> chưa nhớ</div>
+</div>
+
+<!-- TAB 2: QUIZ -->
+<div class="section" id="s2">
+  <div class="prog-wrap"><div class="prog-fill" id="qProg" style="width:0%"></div></div>
+  <div class="nav-row">
+    <span class="nav-info" id="qCounter">Câu 1 / 15</span>
+    <span class="nav-info" id="qScore" style="font-weight:600;color:var(--green)">0 điểm</span>
+  </div>
+  <div class="card anim" id="qCard">
+    <div class="q-sub" id="qSub"></div>
+    <div class="q-text" id="qText"></div>
+    <div class="opt-grid" id="qOpts"></div>
+    <div class="reveal-box" id="qReveal"></div>
+  </div>
+</div>
+
+<!-- TAB 3: FILL BLANK -->
+<div class="section" id="s3">
+  <div class="prog-wrap"><div class="prog-fill" id="fProg" style="width:0%"></div></div>
+  <div class="nav-row">
+    <span class="nav-info" id="fCounter">1 / 10</span>
+    <span class="nav-info" id="fScore" style="font-weight:600;color:var(--green)">0 đúng</span>
+  </div>
+  <div class="card anim" id="fCard">
+    <div class="section-head">Điền từ thích hợp vào chỗ trống</div>
+    <div id="fSentence" style="font-size:15px;line-height:1.8;color:var(--text)" class="zh-text"></div>
+    <input class="fill-input" id="fInput" placeholder="Nhập tiếng Trung..." autocomplete="off" autocorrect="off" spellcheck="false" inputmode="text">
+    <div class="hint-text" id="fHint"></div>
+    <div class="reveal-box" id="fReveal"></div>
+    <div class="btn-row" style="margin-top:12px">
+      <button class="btn primary" onclick="fillCheck()">Kiểm tra</button>
+      <button class="btn" onclick="fillSkip()">Bỏ qua</button>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4: VOCAB LIST -->
+<div class="section" id="s4">
+  <div class="group-list">
+    <div class="group-pill active" style="background:var(--green);border-color:var(--green);color:#fff" onclick="listGroup(-1,this)">Tất cả</div>
+    <div class="group-pill" onclick="listGroup(0,this)">Đồ 1 lần</div>
+    <div class="group-pill" onclick="listGroup(1,this)">Môi trường</div>
+    <div class="group-pill" onclick="listGroup(2,this)">Hành động</div>
+    <div class="group-pill" onclick="listGroup(3,this)">Bài khoá</div>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden">
+    <table class="vocab-table" id="vocabTable">
+      <thead><tr><th style="width:38%">Hán tự</th><th style="width:62%">Nghĩa tiếng Việt</th></tr></thead>
+      <tbody id="vocabBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TAB 5: RESULTS -->
+<div class="section" id="s5">
+  <div class="result-card">
+    <div style="font-size:15px;font-weight:600;margin-bottom:16px;color:var(--text)">Kết quả luyện tập</div>
+    <div class="score-big" id="rTotal">--</div>
+    <div class="score-label" id="rMsg">Hãy bắt đầu luyện tập</div>
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-n" id="rFc" style="color:var(--green)">--</div>
+        <div class="stat-l">Thẻ nhớ</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-n" id="rQ" style="color:var(--blue)">--</div>
+        <div class="stat-l">Trắc nghiệm</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-n" id="rF" style="color:var(--amber)">--</div>
+        <div class="stat-l">Điền từ</div>
+      </div>
+    </div>
+    <button class="btn primary" style="max-width:220px;margin:0 auto" onclick="resetAll()">↺ Luyện lại từ đầu</button>
+  </div>
+  <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--text3);padding-bottom:20px">
+    环境保护 Vocabulary App · Bao ve Moi Truong
+  </div>
+</div>
+
+<script>
+const V=[
+  {zh:"一次性用品",py:"yīcìxìng yòngpǐn",vi:"Đồ dùng một lần",g:0},
+  {zh:"一次性筷子",py:"yīcìxìng kuàizi",vi:"Đũa dùng một lần",g:0},
+  {zh:"一次性杯子",py:"yīcìxìng bēizi",vi:"Cốc dùng một lần",g:0},
+  {zh:"一次性碗",py:"yīcìxìng wǎn",vi:"Chén/bát dùng một lần",g:0},
+  {zh:"一次性手套",py:"yīcìxìng shǒutào",vi:"Găng tay dùng một lần",g:0},
+  {zh:"一次性口罩",py:"yīcìxìng kǒuzhào",vi:"Khẩu trang dùng một lần",g:0},
+  {zh:"一次性袋子",py:"yīcìxìng dàizi",vi:"Túi dùng một lần",g:0},
+  {zh:"一次性饭盒",py:"yīcìxìng fànhé",vi:"Hộp cơm dùng một lần",g:0},
+  {zh:"塑料袋",py:"sùliàodài",vi:"Túi nilon",g:0},
+  {zh:"吸管",py:"xīguǎn",vi:"Ống hút",g:0},
+  {zh:"纸巾",py:"zhǐjīn",vi:"Khăn giấy",g:0},
+  {zh:"湿巾",py:"shījīn",vi:"Khăn ướt",g:0},
+  {zh:"环境污染",py:"huánjìng wūrǎn",vi:"Ô nhiễm môi trường",g:1},
+  {zh:"水污染",py:"shuǐ wūrǎn",vi:"Ô nhiễm nước",g:1},
+  {zh:"空气污染",py:"kōngqì wūrǎn",vi:"Ô nhiễm không khí",g:1},
+  {zh:"垃圾污染",py:"lājī wūrǎn",vi:"Ô nhiễm rác thải",g:1},
+  {zh:"白色污染",py:"báisè wūrǎn",vi:"Ô nhiễm trắng (nhựa)",g:1},
+  {zh:"塑料污染",py:"sùliào wūrǎn",vi:"Ô nhiễm nhựa",g:1},
+  {zh:"废气",py:"fèiqì",vi:"Khí thải",g:1},
+  {zh:"排放废气",py:"páifàng fèiqì",vi:"Thải khí thải",g:1},
+  {zh:"气候变暖",py:"qìhòu biànnuǎn",vi:"Biến đổi khí hậu / nóng lên",g:1},
+  {zh:"破坏生态平衡",py:"pòhuài shēngtài pínghéng",vi:"Phá vỡ cân bằng sinh thái",g:1},
+  {zh:"威胁海洋生物",py:"wēixié hǎiyáng shēngwù",vi:"Đe dọa sinh vật biển",g:1},
+  {zh:"难以自行降解",py:"nányǐ zìxíng jiàngjǐe",vi:"Khó tự phân hủy",g:1},
+  {zh:"食物链",py:"shíwùliàn",vi:"Chuỗi thức ăn",g:1},
+  {zh:"过度包装",py:"guòdù bāozhuāng",vi:"Đóng gói quá mức",g:1},
+  {zh:"保护环境",py:"bǎohù huánjìng",vi:"Bảo vệ môi trường",g:2},
+  {zh:"节约用电",py:"jiéyuē yòngdiàn",vi:"Tiết kiệm điện",g:2},
+  {zh:"垃圾分类",py:"lājī fēnlèi",vi:"Phân loại rác",g:2},
+  {zh:"垃圾桶",py:"lājītǒng",vi:"Thùng rác",g:2},
+  {zh:"回收垃圾",py:"huíshōu lājī",vi:"Rác tái chế",g:2},
+  {zh:"危险废物",py:"wēixiǎn fèiwù",vi:"Rác thải nguy hiểm",g:2},
+  {zh:"限塑令",py:"xiàn sù lìng",vi:"Lệnh hạn chế nhựa",g:2},
+  {zh:"禁塑令",py:"jìn sù lìng",vi:"Lệnh cấm nhựa",g:2},
+  {zh:"源头减量",py:"yuántóu jiǎnliàng",vi:"Giảm thiểu từ nguồn",g:2},
+  {zh:"倡导绿色生活",py:"chàngdǎo lǜsè shēnghuó",vi:"Vận động lối sống xanh",g:2},
+  {zh:"环保袋",py:"huánbǎodài",vi:"Túi thân thiện môi trường",g:2},
+  {zh:"自带",py:"zìdài",vi:"Tự mang theo",g:2},
+  {zh:"滥用",py:"lànyòng",vi:"Lạm dụng",g:2},
+  {zh:"响应",py:"xiǎngyìng",vi:"Hưởng ứng / đáp lại",g:2},
+  {zh:"出差",py:"chūchāi",vi:"Đi công tác",g:3},
+  {zh:"堵车",py:"dǔchē",vi:"Tắc đường",g:3},
+  {zh:"卫生",py:"wèishēng",vi:"Vệ sinh",g:3},
+  {zh:"印象",py:"yìnxiàng",vi:"Ấn tượng",g:3},
+  {zh:"加班",py:"jiābān",vi:"Làm thêm giờ",g:3},
+  {zh:"关灯",py:"guāndēng",vi:"Tắt đèn",g:3},
+  {zh:"点外卖",py:"diǎn wàimài",vi:"Đặt đồ ăn giao về",g:3},
+  {zh:"招聘",py:"zhāopìn",vi:"Tuyển dụng",g:3},
+  {zh:"责任",py:"zérèn",vi:"Trách nhiệm",g:3},
+  {zh:"勇敢",py:"yǒnggǎn",vi:"Dũng cảm",g:3},
+  {zh:"潮流",py:"cháoliú",vi:"Xu hướng / trào lưu",g:3},
+  {zh:"倡导",py:"chàngdǎo",vi:"Vận động / kêu gọi",g:3},
+  {zh:"以防万一",py:"yǐfáng wànyī",vi:"Phòng khi bất trắc",g:3},
+  {zh:"源头",py:"yuántóu",vi:"Nguồn gốc / điểm ban đầu",g:3},
+];
+const GN=["Đồ dùng 1 lần","Môi trường & Ô nhiễm","Hành động bảo vệ MT","Từ bài khoá"];
+const GC=["#1D9E75","#185FA5","#6A1B9A","#E65100"];
+const FQ=[
+  {s:"塑料袋___，需要几百年才能消失。",a:"难以自行降解",h:"Khó tự phân hủy"},
+  {s:"自从政府出台___以来，超市不再免费提供塑料袋了。",a:"限塑令",h:"Lệnh cấm nhựa"},
+  {s:"每天___塑料袋是造成___的主要原因。",a:"滥用 / 白色污染",h:"lạm dụng / ô nhiễm trắng"},
+  {s:"吸管和塑料袋漂浮在海洋上，正在严重地___。",a:"威胁海洋生物",h:"đe dọa sinh vật biển"},
+  {s:"我们应该___，减少使用一次性用品，___绿色生活。",a:"响应限塑令 / 倡导",h:"hưởng ứng / vận động"},
+  {s:"大量的垃圾___到自然环境中，正在___。",a:"排放 / 破坏生态平衡",h:"thải ra / phá vỡ cân bằng"},
+  {s:"为了减少垃圾，我们出门应该___购物袋。",a:"自带",h:"tự mang theo"},
+  {s:"这个月饼礼盒___了，盒子很大里面月饼却很少。",a:"过度包装",h:"đóng gói quá mức"},
+  {s:"想解决垃圾问题必须做到___，限制生产一次性用品。",a:"源头减量",h:"giảm thiểu từ nguồn"},
+  {s:"不可降解的垃圾最终会进入___，危害人类健康。",a:"食物链",h:"chuỗi thức ăn"},
+];
+const QQ=[
+  {q:"'塑料袋大量使用带来___'",s:"Chọn vấn đề gây ra",a:"环境污染问题",w:["节约用电","垃圾分类","出差机会"]},
+  {q:"'难以自行降解'",s:"Nghĩa tiếng Việt là gì?",a:"Khó tự phân hủy",w:["Đóng gói quá mức","Giảm thiểu từ nguồn","Phá vỡ cân bằng sinh thái"]},
+  {q:"'限塑令'",s:"Nghĩa là gì?",a:"Lệnh hạn chế/cấm nhựa",w:["Lệnh tái chế rác","Lệnh tiết kiệm điện","Lệnh cấm đốt rác"]},
+  {q:"'自带'",s:"Nghĩa là gì?",a:"Tự mang theo",w:["Tự lái xe","Tự nấu ăn","Tự dọn dẹp"]},
+  {q:"'垃圾分类'",s:"Nghĩa là gì?",a:"Phân loại rác",w:["Thu gom rác","Đốt rác","Bán rác"]},
+  {q:"Từ nào KHÔNG thuộc đồ dùng một lần?",s:"Chọn từ không cùng nhóm",a:"垃圾桶",w:["吸管","一次性筷子","塑料袋"]},
+  {q:"'食物链'",s:"Nghĩa là gì?",a:"Chuỗi thức ăn",w:["Chuỗi siêu thị","Chuỗi nhà hàng","Chuỗi thực phẩm đóng gói"]},
+  {q:"'倡导绿色生活'",s:"Nghĩa là gì?",a:"Vận động lối sống xanh",w:["Sống trong rừng","Trồng cây xanh","Ăn rau xanh"]},
+  {q:"'排放废气'",s:"Nghĩa là gì?",a:"Thải khí thải",w:["Lọc khí thải","Hấp thu khí thải","Bơm khí thải vào bình"]},
+  {q:"'源头减量'",s:"Nghĩa là gì?",a:"Giảm thiểu từ nguồn",w:["Tăng lượng tái chế","Giảm giá sản phẩm","Giảm thiểu tại điểm bán"]},
+  {q:"'白色污染'",s:"Do đâu gây ra?",a:"Túi nhựa & đồ nhựa dùng 1 lần",w:["Khí thải xe hơi","Nước thải công nghiệp","Rác thực phẩm"]},
+  {q:"'破坏生态平衡'",s:"Nghĩa là gì?",a:"Phá vỡ cân bằng sinh thái",w:["Bảo vệ sinh thái","Nghiên cứu sinh thái","Khám phá sinh thái"]},
+  {q:"'威胁海洋生物'",s:"Nghĩa là gì?",a:"Đe dọa sinh vật biển",w:["Nuôi dưỡng sinh vật biển","Nghiên cứu sinh vật biển","Phát hiện sinh vật biển"]},
+  {q:"'过度包装'",s:"Nghĩa là gì?",a:"Đóng gói quá mức",w:["Đóng gói tái chế","Đóng gói đơn giản","Đóng gói bảo vệ MT"]},
+  {q:"'响应'",s:"Nghĩa là gì?",a:"Hưởng ứng / đáp lại",w:["Phản đối","Im lặng","Thỏa thuận"]},
+];
+
+function shuf(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+let scores={fc:null,q:null,f:null};
+
+// ── FLASHCARD ──
+let fcCards=[...V],fcIdx=0,fcKnown=0,fcUnknown=0,fcGroup=-1;
+function fcRender(){
+  const v=fcCards[fcIdx];
+  document.getElementById('fcZh').textContent=v.zh;
+  document.getElementById('fcZh2').textContent=v.zh;
+  document.getElementById('fcPy').textContent=v.py;
+  document.getElementById('fcPy2').textContent=v.py;
+  document.getElementById('fcVi').textContent=v.vi;
+  const gn=GN[v.g];const gc=GC[v.g];
+  ['fcTag','fcTag2'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.textContent=gn;el.style.background=gc+'22';el.style.color=gc;
+  });
+  document.getElementById('fcCounter').textContent=(fcIdx+1)+' / '+fcCards.length;
+  document.getElementById('fcProg').style.width=Math.round((fcIdx+1)/fcCards.length*100)+'%';
+  document.getElementById('fcKnown').textContent=fcKnown;
+  document.getElementById('fcUnknown').textContent=fcUnknown;
+  document.getElementById('fcWrap').classList.remove('flipped');
+}
+function fcFlip(){document.getElementById('fcWrap').classList.toggle('flipped')}
+function fcMark(ok){
+  if(ok)fcKnown++;else fcUnknown++;
+  fcIdx++;
+  if(fcIdx>=fcCards.length){
+    scores.fc=Math.round(fcKnown/(fcKnown+fcUnknown)*100);
+    document.getElementById('b1').textContent=fcKnown+'/'+fcCards.length;
+    document.querySelectorAll('.tab-btn')[1].classList.add('done');
+    fcIdx=0;
+  }
+  fcRender();
+}
+function fcSkip(){fcIdx=(fcIdx+1)%fcCards.length;document.getElementById('fcWrap').classList.remove('flipped');fcRender();}
+function fcShuffle(){fcCards=shuf(fcCards);fcIdx=0;fcKnown=0;fcUnknown=0;fcRender();}
+function fcSetGroup(g,el){
+  document.querySelectorAll('#fcGroupFilter .group-pill').forEach(p=>{p.classList.remove('active');p.style.background='';p.style.borderColor='';p.style.color='';});
+  el.classList.add('active');
+  const gc=g>=0?GC[g]:'var(--green)';
+  el.style.background=gc;el.style.borderColor=gc;el.style.color='#fff';
+  fcGroup=g;fcCards=g<0?[...V]:V.filter(v=>v.g===g);fcIdx=0;fcKnown=0;fcUnknown=0;fcRender();
+}
+function fcFilterGroup(){
+  const g=parseInt(prompt('Nhập số nhóm (1-4, hoặc 0 để xem tất cả):'))||0;
+  fcSetGroup(g-1,document.querySelectorAll('#fcGroupFilter .group-pill')[Math.max(0,g)]);
+}
+fcRender();
+
+// ── QUIZ ──
+let qIdx=0,qScore=0,qDone=false,qQs=shuf([...QQ]);
+function qRender(){
+  if(qIdx>=qQs.length){
+    scores.q=Math.round(qScore/qQs.length*100);
+    document.getElementById('b2').textContent=qScore+'/'+qQs.length;
+    document.querySelectorAll('.tab-btn')[2].classList.add('done');
+    document.getElementById('qCard').innerHTML='<div style="text-align:center;padding:20px"><div style="font-size:36px;font-weight:700;color:var(--green);margin-bottom:8px">'+qScore+'/'+qQs.length+'</div><div style="color:var(--text3);font-size:14px;margin-bottom:16px">Hoàn thành trắc nghiệm!</div><button class="btn primary" style="max-width:160px;margin:0 auto" onclick="qReset()">Làm lại</button></div>';
+    return;
+  }
+  const q=qQs[qIdx];
+  const opts=shuf([q.a,...q.w]);
+  document.getElementById('qSub').textContent=q.s;
+  document.getElementById('qText').textContent=q.q;
+  document.getElementById('qCounter').textContent='Câu '+(qIdx+1)+' / '+qQs.length;
+  document.getElementById('qScore').textContent=qScore+' điểm';
+  document.getElementById('qProg').style.width=Math.round(qIdx/qQs.length*100)+'%';
+  document.getElementById('qReveal').style.display='none';
+  const el=document.getElementById('qOpts');
+  el.innerHTML='';
+  qDone=false;
+  opts.forEach(o=>{
+    const d=document.createElement('div');
+    d.className='opt';d.textContent=o;
+    d.onclick=()=>{
+      if(qDone)return;qDone=true;
+      document.querySelectorAll('#qOpts .opt').forEach(x=>{
+        x.classList.add('disabled');
+        if(x.textContent===q.a)x.classList.add('correct');
+        else if(x.textContent===o&&o!==q.a)x.classList.add('wrong');
+      });
+      if(o===q.a)qScore++;
+      setTimeout(()=>{qIdx++;qRender();},900);
+    };
+    el.appendChild(d);
+  });
+}
+function qReset(){qIdx=0;qScore=0;qDone=false;qQs=shuf([...QQ]);qRender();}
+qRender();
+
+// ── FILL BLANK ──
+let fIdx=0,fCorrect=0,fDone=false;
+function fRender(){
+  if(fIdx>=FQ.length){
+    scores.f=Math.round(fCorrect/FQ.length*100);
+    document.getElementById('b3').textContent=fCorrect+'/'+FQ.length;
+    document.querySelectorAll('.tab-btn')[3].classList.add('done');
+    document.getElementById('fCard').innerHTML='<div style="text-align:center;padding:20px"><div style="font-size:36px;font-weight:700;color:var(--green);margin-bottom:8px">'+fCorrect+'/'+FQ.length+'</div><div style="color:var(--text3);font-size:14px;margin-bottom:16px">Hoàn thành điền từ!</div><button class="btn primary" style="max-width:160px;margin:0 auto" onclick="fReset()">Làm lại</button></div>';
+    return;
+  }
+  const q=FQ[fIdx];
+  document.getElementById('fSentence').textContent=q.s;
+  document.getElementById('fHint').textContent='Gợi ý: '+q.h;
+  document.getElementById('fCounter').textContent=(fIdx+1)+' / '+FQ.length;
+  document.getElementById('fScore').textContent=fCorrect+' đúng';
+  document.getElementById('fProg').style.width=Math.round(fIdx/FQ.length*100)+'%';
+  const inp=document.getElementById('fInput');
+  inp.value='';inp.className='fill-input';inp.disabled=false;
+  const rev=document.getElementById('fReveal');
+  rev.style.display='none';rev.className='reveal-box';
+  fDone=false;
+}
+function fillCheck(){
+  if(fDone)return;
+  const inp=document.getElementById('fInput');
+  const q=FQ[fIdx];
+  const user=inp.value.trim();
+  const parts=q.a.split('/').map(s=>s.trim());
+  const userParts=user.split('/').map(s=>s.trim());
+  const ok=user===q.a||parts.every((p,i)=>userParts[i]===p);
+  fDone=true;inp.disabled=true;
+  inp.className='fill-input '+(ok?'correct':'wrong');
+  const rev=document.getElementById('fReveal');
+  rev.style.display='block';
+  if(ok){rev.textContent='✓ Đúng rồi!';rev.className='reveal-box ok';fCorrect++;document.getElementById('fScore').textContent=fCorrect+' đúng';}
+  else{rev.textContent='✗ Đáp án: '+q.a;rev.className='reveal-box no';}
+  setTimeout(()=>{fIdx++;fRender();},1500);
+}
+function fillSkip(){
+  if(fDone)return;fDone=true;
+  const rev=document.getElementById('fReveal');
+  rev.style.display='block';rev.textContent='→ Đáp án: '+FQ[fIdx].a;rev.className='reveal-box skip';
+  document.getElementById('fInput').disabled=true;
+  setTimeout(()=>{fIdx++;fRender();},1500);
+}
+document.getElementById('fInput').addEventListener('keydown',e=>{if(e.key==='Enter')fillCheck();});
+function fReset(){fIdx=0;fCorrect=0;fDone=false;fRender();}
+fRender();
+
+// ── VOCAB LIST ──
+function renderList(g){
+  const data=g<0?V:V.filter(v=>v.g===g);
+  const tb=document.getElementById('vocabBody');
+  tb.innerHTML='';
+  data.forEach(v=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><div class="v-zh zh-text">${v.zh}</div><div class="v-py">${v.py}</div></td><td class="v-vi">${v.vi}</td>`;
+    tb.appendChild(tr);
+  });
+}
+function listGroup(g,el){
+  document.querySelectorAll('#s4 .group-pill').forEach(p=>{p.classList.remove('active');p.style.background='';p.style.borderColor='';p.style.color='';});
+  el.classList.add('active');
+  const gc=g>=0?GC[g]:'var(--green)';
+  el.style.background=gc;el.style.borderColor=gc;el.style.color='#fff';
+  renderList(g);
+}
+renderList(-1);
+
+// ── RESULTS ──
+function updateResults(){
+  const vals=[scores.fc,scores.q,scores.f].filter(v=>v!==null);
+  const avg=vals.length?Math.round(vals.reduce((a,b)=>a+b,0)/vals.length):null;
+  document.getElementById('rFc').textContent=scores.fc!==null?scores.fc+'%':'--';
+  document.getElementById('rQ').textContent=scores.q!==null?scores.q+'%':'--';
+  document.getElementById('rF').textContent=scores.f!==null?scores.f+'%':'--';
+  document.getElementById('rTotal').textContent=avg!==null?avg+'%':'--';
+  const msg=avg===null?'Hãy bắt đầu luyện tập':avg>=85?'Xuất sắc! Tiếp tục duy trì':avg>=70?'Tốt lắm! Luyện thêm chút nữa':avg>=50?'Cần ôn thêm — bạn làm được!':'Hãy luyện thêm nhe!';
+  document.getElementById('rMsg').textContent=msg;
+}
+
+// ── TABS ──
+function switchTab(i){
+  document.querySelectorAll('.tab-btn').forEach((t,j)=>t.classList.toggle('active',j===i));
+  document.querySelectorAll('.section').forEach((s,j)=>s.classList.toggle('active',j===i));
+  if(i===5)updateResults();
+}
+
+// ── RESET ──
+function resetAll(){
+  fcIdx=0;fcCards=[...V];fcKnown=0;fcUnknown=0;fcGroup=-1;
+  document.querySelectorAll('#fcGroupFilter .group-pill').forEach((p,i)=>{p.classList.toggle('active',i===0);p.style.background=i===0?'var(--green)':'';p.style.borderColor=i===0?'var(--green)':'';p.style.color=i===0?'#fff':'';});
+  fcRender();
+  qIdx=0;qScore=0;qDone=false;qQs=shuf([...QQ]);qReset();
+  fIdx=0;fCorrect=0;fDone=false;fReset();
+  scores={fc:null,q:null,f:null};
+  ['b1','b2','b3'].forEach((id,i)=>{document.getElementById(id).textContent=[54,15,10][i];});
+  document.querySelectorAll('.tab-btn').forEach(t=>t.classList.remove('done'));
+  switchTab(0);
+}
+</script>
+</body>
+</html>
